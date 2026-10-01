@@ -1,5 +1,15 @@
 // ===== LulusYuk - script.js =====
 
+// 0. Daftarin Service Worker biar bisa jadi PWA (installable di HP)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch((err) => {
+      console.error('Gagal daftarin service worker:', err);
+    });
+  });
+}
+
+
 // 1. Loading screen -> auto pindah ke Login setelah 2.5 detik
 if (document.body.classList.contains('page-loading')) {
   setTimeout(() => {
