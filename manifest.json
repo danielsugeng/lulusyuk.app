@@ -1,0 +1,19 @@
+{
+  "name": "LulusYuk",
+  "short_name": "LulusYuk",
+  "description": "Latihan Hari Ini Untuk Kampus Impian Esok Hari!",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0F2B63",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
