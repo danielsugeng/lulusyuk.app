@@ -31,6 +31,15 @@ function getCurrentUser() {
   return getUsers().find((u) => u.email === email) || null;
 }
 
+function simpanHasil(hasil) {
+  const users = getUsers();
+  const current = users.find((u) => u.email === localStorage.getItem(CURRENT_KEY));
+  if (!current) return;
+  current.hasil = current.hasil || [];
+  current.hasil.push(hasil);
+  saveUsers(users);
+}
+
 // 2. Loading screen -> auto pindah ke Login setelah 2.5 detik
 if (document.body.classList.contains('page-loading')) {
   setTimeout(() => {
@@ -111,7 +120,57 @@ if (document.body.classList.contains('page-target')) {
   });
 }
 
-// 6. Dashboard -> isi "Halo, Nama!" dan "Sudah Siap Masuk (Univ)?" dari data akun
+// 6. Dashboard -> sapaan, statistik minggu ini, dan rekomendasi latihan dari data akun
+
+// Awal minggu = hari Senin jam 00:00 (waktu lokal)
+function awalMingguIni() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return d.getTime();
+}
+
+function isiStatistik(user) {
+  const batas = awalMingguIni();
+  const minggu = (user.hasil || []).filter((h) => h.tanggal >= batas);
+  const dijawab = minggu.reduce((a, h) => a + h.dijawab, 0);
+  const benar = minggu.reduce((a, h) => a + h.benar, 0);
+
+  document.getElementById('statTotal').textContent = dijawab;
+  document.getElementById('statAkurasi').textContent =
+    dijawab > 0 ? Math.round((benar / dijawab) * 100) + '%' : '-';
+}
+
+// Rekomendasi: utamakan latihan yang BELUM pernah dikerjakan (gonta-ganti tiap hari).
+// Kalau semuanya sudah pernah, rekomendasiin yang skor terbaiknya paling rendah.
+function pilihRekomendasi(user) {
+  const hasil = user.hasil || [];
+  const skorTerbaik = (id) => {
+    const skor = hasil.filter((h) => h.id === id).map((h) => h.skor);
+    return skor.length ? Math.max(...skor) : null;
+  };
+
+  const belum = LATIHAN.filter((l) => skorTerbaik(l.id) === null);
+  if (belum.length > 0) {
+    const sekarang = new Date();
+    const hariKe = Math.floor((sekarang.getTime() - sekarang.getTimezoneOffset() * 60000) / 86400000);
+    return { latihan: belum[hariKe % belum.length], terbaik: null };
+  }
+
+  return LATIHAN
+    .map((l) => ({ latihan: l, terbaik: skorTerbaik(l.id) }))
+    .sort((a, b) => a.terbaik - b.terbaik)[0];
+}
+
+function isiRekomendasi(user) {
+  const rek = pilihRekomendasi(user);
+  document.getElementById('recoCard').href = 'detail.html?id=' + rek.latihan.id;
+  document.getElementById('recoJudul').textContent = rek.latihan.judul;
+  document.getElementById('recoBar').style.width = (rek.terbaik === null ? 0 : rek.terbaik) + '%';
+  document.getElementById('recoMeta').textContent =
+    rek.terbaik === null ? 'Belum pernah dikerjakan' : 'Skor terbaikmu: ' + rek.terbaik;
+}
+
 if (document.body.classList.contains('page-dashboard')) {
   const user = getCurrentUser();
 
@@ -122,5 +181,12 @@ if (document.body.classList.contains('page-dashboard')) {
   } else {
     document.getElementById('userName').textContent = user.name.split(' ')[0];
     document.getElementById('userUniv').textContent = user.univ;
+    isiStatistik(user);
+    isiRekomendasi(user);
   }
+
+  // Kalau balik ke dashboard pakai tombol back, muat ulang biar statistik ikut update
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) window.location.reload();
+  });
 }

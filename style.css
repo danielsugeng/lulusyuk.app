@@ -778,3 +778,38 @@ button {
   text-decoration: underline;
   padding: 6px;
 }
+
+/* ===================== DASHBOARD: rekomendasi & statistik ===================== */
+.section-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.section-row .section-title { margin: 0; }
+
+.section-link {
+  color: #1E4FB8;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reco-card { color: inherit; }
+.reco-card:active { transform: scale(0.99); }
+
+.reco-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.reco-meta {
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--gray-text);
+}

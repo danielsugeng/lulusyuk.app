@@ -164,6 +164,17 @@ if (document.body.classList.contains('page-soal') && requireLogin()) {
       const benar = jawaban.filter((j, i) => j === l.soal[i].jawaban).length;
       const terpakai = Math.min(durasiDetik, Math.round(durasiDetik - (waktuSelesai - Date.now()) / 1000));
 
+      simpanHasil({
+        id: l.id,
+        judul: l.judul,
+        dijawab: jawaban.filter((x) => x !== null).length,
+        benar: benar,
+        total: total,
+        skor: Math.round((benar / total) * 100),
+        terpakai: terpakai,
+        tanggal: Date.now()
+      });
+
       document.getElementById('resultJudul').textContent = l.judul;
       document.getElementById('resultSkor').textContent = Math.round((benar / total) * 100);
       document.getElementById('resultDetail').textContent = `${benar} dari ${total} soal dijawab dengan benar`;
