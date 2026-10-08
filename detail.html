@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LulusYuk - Detail Latihan</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F2B63">
+<link rel="apple-touch-icon" href="logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-detail">
+
+  <div class="phone-frame">
+    <div class="screen dashboard-screen">
+
+      <div class="dash-scroll detail-wrap">
+
+        <a href="latihan.html" class="back-btn" aria-label="Kembali">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+
+        <h2 id="detailTitle" class="detail-title">Nama Latihan</h2>
+        <div class="detail-tag-wrap"><span id="detailTag" class="detail-tag">UTBK</span></div>
+
+        <div class="stat-chips">
+          <div class="chip">
+            <span class="chip-label">Jumlah Soal</span>
+            <span id="dJumlah" class="chip-value">-</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">Waktu (Menit)</span>
+            <span id="dWaktu" class="chip-value">-</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">Kesulitan</span>
+            <span id="dKesulitan" class="chip-value chip-text">-</span>
+          </div>
+        </div>
+
+        <div class="section-label">Tentang Latihan</div>
+        <div id="detailDesc" class="desc-box"></div>
+
+        <a id="btnMulai" href="latihan.html" class="btn-navy">MULAI</a>
+
+      </div>
+
+      <div class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">🏠</span>
+          Home
+        </a>
+        <a href="latihan.html" class="nav-item active">
+          <span class="nav-icon">📘</span>
+          Latihan
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">📊</span>
+          Analisis
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">👤</span>
+          Profil
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="soal-data.js"></script>
+<script src="latihan.js"></script>
+</body>
+</html>

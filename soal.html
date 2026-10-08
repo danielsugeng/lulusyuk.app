@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LulusYuk - Soal</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F2B63">
+<link rel="apple-touch-icon" href="logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-soal">
+
+  <div class="phone-frame">
+    <div class="screen soal-screen">
+
+      <!-- Tampilan mengerjakan soal -->
+      <div id="quizView" class="soal-body">
+
+        <div class="soal-top">
+          <button id="btnBack" class="back-btn" aria-label="Keluar dari latihan">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <span id="timer" class="timer-pill">00:00</span>
+        </div>
+
+        <div class="soal-head">
+          <div id="soalJudul" class="soal-judul">Nama Latihan</div>
+          <div id="soalNomor" class="soal-nomor">Soal 1/1</div>
+        </div>
+
+        <div class="section-label">Soal</div>
+        <div id="soalBox" class="soal-box"></div>
+
+        <div id="opsiList" class="opsi-list"></div>
+
+        <div class="soal-nav">
+          <button id="btnPrev" class="btn-prev">Sebelumnya</button>
+          <button id="btnNext" class="btn-next">Selanjutnya</button>
+        </div>
+
+      </div>
+
+      <!-- Tampilan hasil setelah selesai -->
+      <div id="resultView" class="result-view" hidden>
+        <p class="result-label">Latihan Selesai!</p>
+        <h2 id="resultJudul" class="result-judul">Nama Latihan</h2>
+        <div class="result-score"><span id="resultSkor">0</span></div>
+        <p id="resultDetail" class="result-detail"></p>
+        <p id="resultWaktu" class="result-waktu"></p>
+        <a href="latihan.html" class="btn-navy">KEMBALI KE BANK SOAL</a>
+        <button id="btnUlang" class="btn-ulang">Ulangi Latihan</button>
+      </div>
+
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="soal-data.js"></script>
+<script src="latihan.js"></script>
+</body>
+</html>
