@@ -409,3 +409,44 @@ button {
 .nav-item.active {
   color: var(--orange);
 }
+
+/* ===================== TARGET PAGE ===================== */
+.target-screen {
+  background: linear-gradient(180deg, #0A52BC 0%, #062B6E 100%);
+  justify-content: center;
+  padding: 24px;
+}
+
+.target-card {
+  background: var(--white);
+  border-radius: 26px;
+  padding: 22px 22px 26px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.target-logo {
+  text-align: center;
+}
+
+.target-logo .logo-icon { width: 46px; height: 46px; }
+.target-logo .logo-text { font-size: 22px; }
+
+.target-title {
+  text-align: center;
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 10px 0 22px;
+}
+
+.target-card .field label { color: var(--navy); }
+
+.target-card .field input {
+  color: var(--navy);
+  border-bottom: 1px solid var(--navy);
+}
+
+.target-card .field input::placeholder {
+  color: var(--gray-text);
+}
