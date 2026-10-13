@@ -1,11 +1,11 @@
 // ===== LulusYuk - latihan.js =====
-// Dipakai oleh: latihan.html, detail.html, soal.html
-// Butuh script.js (getCurrentUser) dan soal-data.js (LATIHAN) yang dimuat lebih dulu.
+// Dipakai oleh: latihan.html, detail.html, tryout.html, soal.html
+// Butuh script.js (getCurrentUser, simpanHasil, awalMingguIni) + soal-data.js / tryout-data.js
 
 const BADGE_CLASS = { Mudah: 'badge-mudah', Sedang: 'badge-sedang', Sulit: 'badge-sulit' };
 const HURUF = ['A', 'B', 'C', 'D', 'E'];
 
-// Halaman latihan cuma boleh dibuka kalau sudah login
+// Halaman latihan/tryout cuma boleh dibuka kalau sudah login
 function requireLogin() {
   if (!getCurrentUser()) {
     window.location.href = 'login.html';
@@ -17,6 +17,41 @@ function requireLogin() {
 function getLatihan() {
   const id = new URLSearchParams(window.location.search).get('id');
   return LATIHAN.find((l) => l.id === id) || null;
+}
+
+// Satu bentuk data untuk halaman soal, baik dari Latihan (?id=...) maupun Tryout (?tryout=...)
+function getSesi() {
+  const tryoutId = new URLSearchParams(window.location.search).get('tryout');
+
+  if (tryoutId) {
+    const t = TRYOUT.find((x) => x.id === tryoutId);
+    if (!t) return null;
+    return {
+      id: t.id,
+      judul: t.judul,
+      tipe: 'tryout',
+      waktu: t.waktu,
+      soal: t.materi.flatMap((m) => m.soal.map((s) => ({ ...s, materi: m.nama }))),
+      keluar: 'tryout.html',
+      selesai: 'tryout.html',
+      selesaiLabel: 'KEMBALI KE TRYOUT CENTER',
+      ulangLabel: 'Ulangi Tryout'
+    };
+  }
+
+  const l = getLatihan();
+  if (!l) return null;
+  return {
+    id: l.id,
+    judul: l.judul,
+    tipe: 'latihan',
+    waktu: l.waktu,
+    soal: l.soal.map((s) => ({ ...s, materi: l.judul })),
+    keluar: 'detail.html?id=' + l.id,
+    selesai: 'latihan.html',
+    selesaiLabel: 'KEMBALI KE BANK SOAL',
+    ulangLabel: 'Ulangi Latihan'
+  };
 }
 
 // ---------- 1. BANK SOAL (daftar latihan) ----------
@@ -57,9 +92,45 @@ if (document.body.classList.contains('page-detail') && requireLogin()) {
   }
 }
 
-// ---------- 3. HALAMAN SOAL ----------
+// ---------- 3. TRYOUT CENTER ----------
+if (document.body.classList.contains('page-tryout') && requireLogin()) {
+  // Tryout minggu ini: gonta-ganti tiap minggu kalau isi TRYOUT lebih dari satu
+  const mingguKe = Math.floor(awalMingguIni() / 604800000);
+  const t = TRYOUT[mingguKe % TRYOUT.length];
+  const jumlahSoal = t.materi.reduce((a, m) => a + m.soal.length, 0);
+
+  document.getElementById('tryoutJudul').textContent = t.judul;
+  document.getElementById('tryoutMeta').textContent = `${t.waktu} Menit | ${jumlahSoal} Soal`;
+  document.getElementById('btnTryoutMulai').href = 'soal.html?tryout=' + t.id;
+
+  const label = document.getElementById('tryoutLabel');
+  if (t.label) label.textContent = t.label;
+  else label.hidden = true;
+
+  const grid = document.getElementById('sesiList');
+  t.materi.forEach((m) => {
+    const card = document.createElement('div');
+    card.className = 'sesi-card';
+
+    const nama = document.createElement('div');
+    nama.className = 'sesi-nama';
+    nama.textContent = m.nama;
+    card.appendChild(nama);
+
+    m.sub.forEach((teks) => {
+      const sub = document.createElement('div');
+      sub.className = 'sesi-sub';
+      sub.textContent = teks;
+      card.appendChild(sub);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+// ---------- 4. HALAMAN SOAL (Latihan & Tryout) ----------
 if (document.body.classList.contains('page-soal') && requireLogin()) {
-  const l = getLatihan();
+  const l = getSesi();
 
   if (!l) {
     window.location.href = 'latihan.html';
@@ -85,8 +156,6 @@ if (document.body.classList.contains('page-soal') && requireLogin()) {
       back: document.getElementById('btnBack')
     };
 
-    el.judul.textContent = l.judul;
-
     function formatWaktu(detik) {
       const m = String(Math.floor(detik / 60)).padStart(2, '0');
       const s = String(detik % 60).padStart(2, '0');
@@ -96,6 +165,7 @@ if (document.body.classList.contains('page-soal') && requireLogin()) {
     function render() {
       const s = l.soal[index];
 
+      el.judul.textContent = l.tipe === 'tryout' ? `${l.judul} · ${s.materi}` : l.judul;
       el.nomor.textContent = `Soal ${index + 1}/${total}`;
 
       // teks soal (+ gambar kalau ada)
@@ -154,32 +224,53 @@ if (document.body.classList.contains('page-soal') && requireLogin()) {
         const kosong = jawaban.filter((j) => j === null).length;
         const pesan = kosong > 0
           ? `Masih ada ${kosong} soal yang belum dijawab. Yakin mau selesai?`
-          : 'Selesaikan latihan sekarang?';
+          : 'Selesaikan sekarang?';
         if (!confirm(pesan)) return;
       }
 
       selesai = true;
       clearInterval(timerId);
 
-      const benar = jawaban.filter((j, i) => j === l.soal[i].jawaban).length;
+      // Hitung skor total + rincian per materi (dipakai halaman Analytics)
+      const perMateri = {};
+      let benar = 0;
+      l.soal.forEach((s, i) => {
+        const m = perMateri[s.materi] || (perMateri[s.materi] = { materi: s.materi, dijawab: 0, benar: 0, total: 0 });
+        m.total++;
+        if (jawaban[i] !== null) m.dijawab++;
+        if (jawaban[i] === s.jawaban) {
+          m.benar++;
+          benar++;
+        }
+      });
+
       const terpakai = Math.min(durasiDetik, Math.round(durasiDetik - (waktuSelesai - Date.now()) / 1000));
+      const skor = Math.round((benar / total) * 100);
 
       simpanHasil({
         id: l.id,
         judul: l.judul,
+        tipe: l.tipe,
         dijawab: jawaban.filter((x) => x !== null).length,
         benar: benar,
         total: total,
-        skor: Math.round((benar / total) * 100),
+        skor: skor,
         terpakai: terpakai,
-        tanggal: Date.now()
+        tanggal: Date.now(),
+        detail: Object.values(perMateri)
       });
 
+      document.getElementById('resultLabel').textContent = l.tipe === 'tryout' ? 'Tryout Selesai!' : 'Latihan Selesai!';
       document.getElementById('resultJudul').textContent = l.judul;
-      document.getElementById('resultSkor').textContent = Math.round((benar / total) * 100);
+      document.getElementById('resultSkor').textContent = skor;
       document.getElementById('resultDetail').textContent = `${benar} dari ${total} soal dijawab dengan benar`;
       document.getElementById('resultWaktu').textContent =
         (waktuHabis ? 'Waktu habis! ' : '') + `Waktu terpakai: ${formatWaktu(terpakai)}`;
+
+      const kembali = document.getElementById('btnKembali');
+      kembali.href = l.selesai;
+      kembali.textContent = l.selesaiLabel;
+      document.getElementById('btnUlang').textContent = l.ulangLabel;
 
       el.quiz.hidden = true;
       el.result.hidden = false;
@@ -202,8 +293,8 @@ if (document.body.classList.contains('page-soal') && requireLogin()) {
     });
 
     el.back.addEventListener('click', () => {
-      if (confirm('Keluar dari latihan? Jawabanmu belum tersimpan.')) {
-        window.location.href = 'detail.html?id=' + l.id;
+      if (confirm('Keluar dari sesi ini? Jawabanmu belum tersimpan.')) {
+        window.location.href = l.keluar;
       }
     });
 

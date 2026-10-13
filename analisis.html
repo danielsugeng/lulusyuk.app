@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LulusYuk - Analytics</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F2B63">
+<link rel="apple-touch-icon" href="logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-analisis">
+
+  <div class="phone-frame">
+    <div class="screen dashboard-screen">
+
+      <div class="dash-scroll">
+
+        <h2 class="page-title title-center title-big">Analytics</h2>
+        <p class="page-sub title-center sub-small">Yuk, Pantau Perkembanganmu!</p>
+
+        <div class="kl-row">
+          <div class="kl-card kl-kuat">
+            <span class="kl-title">Materi Terkuat</span>
+            <span id="kuatNama" class="kl-nama">-</span>
+          </div>
+          <div class="kl-card kl-lemah">
+            <span class="kl-title">Materi Terlemah</span>
+            <span id="lemahNama" class="kl-nama">-</span>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <h3 class="chart-title">Grafik Skor</h3>
+          <div id="chart" class="chart"></div>
+          <p id="chartNote" class="chart-note"></p>
+        </div>
+
+        <div class="section-label">Detail Skor</div>
+        <div id="detailSkor"></div>
+
+      </div>
+
+      <div class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">🏠</span>
+          Home
+        </a>
+        <a href="latihan.html" class="nav-item">
+          <span class="nav-icon">📘</span>
+          Latihan
+        </a>
+        <a href="analisis.html" class="nav-item active">
+          <span class="nav-icon">📊</span>
+          Analisis
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">👤</span>
+          Profil
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="analisis.js"></script>
+</body>
+</html>

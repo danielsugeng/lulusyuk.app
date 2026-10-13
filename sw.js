@@ -1,7 +1,7 @@
 // ===== LulusYuk - sw.js =====
 // Naikkin angka versi ini SETIAP KALI kamu update file2 di ASSETS,
 // biar cache lama otomatis dibuang dan gak nyangkut kayak kasus kemarin.
-const CACHE_NAME = 'lulusyuk-cache-v4';
+const CACHE_NAME = 'lulusyuk-cache-v5';
 
 const ASSETS = [
   './',
@@ -14,6 +14,10 @@ const ASSETS = [
   './soal.html',
   './soal-data.js',
   './latihan.js',
+  './tryout.html',
+  './tryout-data.js',
+  './analisis.html',
+  './analisis.js',
   './dashboard.html',
   './style.css',
   './script.js',

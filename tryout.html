@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LulusYuk - Tryout Center</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F2B63">
+<link rel="apple-touch-icon" href="logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-tryout">
+
+  <div class="phone-frame">
+    <div class="screen dashboard-screen">
+
+      <div class="dash-scroll">
+
+        <h2 class="page-title title-center title-big">Tryout Center</h2>
+        <p class="page-sub title-center">Sudah Siap UTBK?</p>
+
+        <div class="section-row center">
+          <div class="section-label">Tryout Minggu Ini</div>
+          <span id="tryoutLabel" class="pill-label">GRATIS</span>
+        </div>
+
+        <div class="tryout-card">
+          <h3 id="tryoutJudul" class="tryout-title">Nama Tryout</h3>
+          <p id="tryoutMeta" class="tryout-meta">-</p>
+          <a id="btnTryoutMulai" href="tryout.html" class="btn-navy btn-navy-sm">MULAI</a>
+        </div>
+
+        <div class="section-label">Detail Sesi Tryout</div>
+        <div id="sesiList" class="sesi-grid"></div>
+
+      </div>
+
+      <div class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">🏠</span>
+          Home
+        </a>
+        <a href="latihan.html" class="nav-item">
+          <span class="nav-icon">📘</span>
+          Latihan
+        </a>
+        <a href="analisis.html" class="nav-item">
+          <span class="nav-icon">📊</span>
+          Analisis
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">👤</span>
+          Profil
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="tryout-data.js"></script>
+<script src="latihan.js"></script>
+</body>
+</html>

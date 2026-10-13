@@ -813,3 +813,238 @@ button {
   font-size: 10.5px;
   color: var(--gray-text);
 }
+
+/* ===================== TRYOUT CENTER ===================== */
+.title-center { text-align: center; }
+.title-big { font-size: 38px; margin-top: 14px; }
+.sub-small { font-size: 14px; margin-bottom: 18px; }
+.page-sub.title-center { margin-bottom: 14px; }
+
+.section-row.center { align-items: center; }
+.section-row .section-label { margin: 0; }
+
+.pill-label {
+  background: #C7EFCB;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 14px;
+}
+
+.tryout-card {
+  background: var(--white);
+  border: 1.5px solid var(--navy);
+  border-radius: 14px;
+  padding: 16px 16px 18px;
+  text-align: center;
+  margin-bottom: 22px;
+  box-shadow: 0 3px 6px rgba(15,43,99,0.15);
+}
+
+.tryout-title {
+  color: var(--navy);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.tryout-meta {
+  color: var(--navy);
+  font-size: 12px;
+  margin: 4px 0 12px;
+}
+
+.btn-navy-sm {
+  font-size: 22px;
+  padding: 8px 40px;
+  margin: 0 auto;
+  width: 70%;
+}
+
+.sesi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.sesi-card {
+  background: var(--white);
+  border: 1.5px solid var(--navy);
+  border-radius: 14px;
+  padding: 12px 8px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(15,43,99,0.15);
+}
+
+.sesi-nama {
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.sesi-sub {
+  color: var(--navy);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+/* ===================== ANALYTICS ===================== */
+.kl-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.kl-card {
+  flex: 1;
+  border: 1.5px solid var(--navy);
+  border-radius: 12px;
+  padding: 8px 8px 9px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(15,43,99,0.15);
+}
+
+.kl-kuat { background: #C7EFCB; }
+.kl-lemah { background: #FFC8C8; }
+
+.kl-title {
+  display: block;
+  color: var(--navy-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.kl-nama {
+  display: block;
+  color: var(--navy);
+  font-size: 10.5px;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+.chart-card {
+  background: var(--white);
+  border: 1.5px solid var(--navy);
+  border-radius: 14px;
+  padding: 12px 10px 10px;
+  margin-bottom: 4px;
+}
+
+.chart-title {
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.chart {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-val {
+  min-height: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.chart-plot {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1.5px solid #D5DCE8;
+}
+
+.chart-bar {
+  width: 60%;
+  background: var(--orange);
+  border-radius: 6px 6px 0 0;
+}
+
+.chart-day {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--navy);
+}
+
+.chart-day.today { font-weight: 800; }
+
+.chart-note {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 10.5px;
+  color: var(--gray-text);
+}
+
+.skor-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: 1.5px solid var(--border-line);
+  border-radius: 14px;
+  padding: 10px 14px 10px 10px;
+  margin-bottom: 10px;
+}
+
+.skor-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #1E4FB8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.skor-info { flex: 1; min-width: 0; }
+
+.skor-nama {
+  color: var(--navy);
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.skor-angka {
+  color: var(--navy);
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.kosong-card {
+  background: var(--white);
+  border: 1.5px dashed var(--border-line);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  color: var(--navy);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.kosong-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #1E4FB8;
+  font-weight: 700;
+  text-decoration: underline;
+}
