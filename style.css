@@ -1154,3 +1154,58 @@ button {
 .menu-btn-logout .menu-btn-arrow { color: #E53935; }
 
 .menu-btn:active { transform: scale(0.99); }
+
+/* ===================== RIWAYAT ===================== */
+.riwayat-title { margin-top: 0; }
+
+.legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: -4px 0 6px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--navy);
+}
+
+.dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.dot-hijau { background: #0A7F4F; }
+.dot-oranye { background: var(--orange); }
+.dot-merah { background: #E42222; }
+
+.riwayat-item {
+  border-radius: 10px;
+  padding: 7px 12px;
+  margin-bottom: 8px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(15,43,99,0.2);
+}
+
+.riwayat-nama {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.riwayat-meta {
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-top: 1px;
+}
+
+.rw-hijau { background: #0A7F4F; color: var(--white); }
+.rw-oranye { background: var(--orange); color: var(--navy-dark); }
+.rw-merah { background: #E42222; color: var(--white); }
